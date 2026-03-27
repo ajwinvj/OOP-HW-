@@ -1,0 +1,113 @@
+public class VirtualPetSimulation {
+
+    // Properties
+    private String petName;
+    private String type; // Dog, Cat, Bird
+    private int energy;
+
+    // Static (shared)
+    private static int totalPets = 0;
+    private static String environmentCondition = "Sunny";
+
+    // Constructor
+    public VirtualPetSimulation(String petName, String type) {
+        this.petName = petName;
+        this.type = type;
+        this.energy = 100;
+        totalPets++;
+    }
+
+    // Eat behavior
+    public void eat() {
+        if (type.equalsIgnoreCase("Dog")) {
+            energy += 20;
+            System.out.println(petName + " wags its tail while eating!");
+        } 
+        else if (type.equalsIgnoreCase("Cat")) {
+            energy += 15;
+            System.out.println(petName + " eats quietly.");
+        } 
+        else if (type.equalsIgnoreCase("Bird")) {
+            energy += 10;
+            System.out.println(petName + " pecks at its food quickly.");
+        }
+    }
+
+    // Play behavior
+    public void play() {
+        if (type.equalsIgnoreCase("Dog")) {
+            energy -= 30;
+            System.out.println(petName + " runs around happily!");
+        } 
+        else if (type.equalsIgnoreCase("Cat")) {
+            energy -= 10;
+            System.out.println(petName + " lazily swats at a toy.");
+        } 
+        else if (type.equalsIgnoreCase("Bird")) {
+            Random rand = new Random();
+            int loss = rand.nextInt(21) + 10; // 10–30
+            energy -= loss;
+            System.out.println(petName + " soars through the sky!");
+        }
+    }
+
+    // Sleep behavior
+    public void sleep() {
+        if (type.equalsIgnoreCase("Dog")) {
+            energy = 100;
+        } 
+        else if (type.equalsIgnoreCase("Cat")) {
+            energy += 50;
+        } 
+        else if (type.equalsIgnoreCase("Bird")) {
+            energy += 30;
+        }
+        System.out.println(petName + " is sleeping...");
+    }
+
+    // Static methods
+    public static void displaySimulationStats() {
+        System.out.println("Total Pets Created: " + totalPets);
+        System.out.println("Current Environment: " + environmentCondition);
+    }
+
+    public static void updateEnvironment(String newCondition) {
+        environmentCondition = newCondition;
+    }
+
+    // Main (Simulation)
+    public static void main(String[] args) {
+        System.out.println("Simulation Started!\n");
+
+        // Create pets
+        VirtualPetSimulation dog = new VirtualPetSimulation("Max", "Dog");
+        VirtualPetSimulation cat = new VirtualPetSimulation("Luna", "Cat");
+        VirtualPetSimulation bird = new VirtualPetSimulation("Sky", "Bird");
+
+        // Show stats
+        displaySimulationStats();
+        System.out.println();
+
+        // Eating
+        dog.eat();
+        cat.eat();
+        bird.eat();
+
+        System.out.println();
+
+        // Playing
+        dog.play();
+        bird.play();
+
+        System.out.println();
+
+        // Sleeping
+        dog.sleep();
+
+        // Change environment
+        updateEnvironment("Rainy");
+
+        System.out.println();
+        displaySimulationStats();
+    }
+}
