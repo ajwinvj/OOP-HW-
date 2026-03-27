@@ -1,0 +1,71 @@
+public class Product {
+    // Attributes
+    String name;
+    double price;
+    int quantity;
+    String category;
+
+    // Constructor
+    public Product(String name, double price, int quantity, String category) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.category = category;
+    }
+
+    // Method to display product details
+    public void displayDetails() {
+        System.out.println("Product Name: " + name);
+        System.out.println("Price: $" + price);
+        System.out.println("Quantity: " + quantity);
+        System.out.println("Category: " + category);
+        System.out.println("---------------------------");
+    }
+
+    // Method to apply discount
+    public void applyDiscount(double percentage) {
+        price = price - (price * percentage / 100);
+        System.out.println(name + " discounted by " + percentage + "%.");
+    }
+
+    // Method to restock
+    public void restock(int amount) {
+        quantity += amount;
+        System.out.println(name + " restocked by " + amount + " units.");
+    }
+
+    // Method to sell product
+    public void sell(int amount) {
+        if (amount <= quantity) {
+            quantity -= amount;
+            System.out.println("Sold " + amount + " units of " + name + ".");
+        } else {
+            System.out.println("Error: Not enough stock for " + name + "!");
+        }
+    }
+
+    // Main method
+    public static void main(String[] args) {
+        // Create three products
+        Product p1 = new Product("Laptop", 1200.0, 10, "Electronics");
+        Product p2 = new Product("T-shirt", 25.0, 50, "Clothing");
+        Product p3 = new Product("Coffee Maker", 80.0, 5, "Appliances");
+
+        // Display details
+        p1.displayDetails();
+        p2.displayDetails();
+        p3.displayDetails();
+
+        // Apply discount to one product
+        p1.applyDiscount(10);
+        p1.displayDetails();
+
+        // Restock another product
+        p2.restock(20);
+        p2.displayDetails();
+
+        // Try to sell more units than available
+        p3.sell(10);  // should show error
+        p3.displayDetails();
+    }
+}
